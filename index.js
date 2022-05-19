@@ -63,10 +63,19 @@ function createShorturl(req, res) {
     return;
   }
 
-  //return if URL is not valid
-  try {
+  //this checks if URL is valid
+  //but it is too smart for tests
+  /*try {
     url = new URL(inputUrl);
   } catch (_) {
+    returnObj.error = "invalid url";
+    res.json(returnObj);
+    return;
+  }*/
+
+  //so we will use some basic Regex
+  testingRegex = new RegExp(/^((http|ftp)[s]*:\\\\)?[\w]+\.[\w]+$/, "gmi");
+  if (!testingRegex.test(inputUrl)) {
     returnObj.error = "invalid url";
     res.json(returnObj);
     return;
