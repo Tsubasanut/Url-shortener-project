@@ -61,6 +61,16 @@ function createShorturl(req, res) {
     res.json(returnObj);
     return;
   }
+
+  //return if URL is not valid
+  try {
+    url = new URL(inputUrl);
+  } catch (_) {
+    returnObj.error = "invalid url";
+    res.json(returnObj);
+    return;
+  }
+
   shortUrl = shorturlMap.get(inputUrl);
 
   if (typeof shortUrl === "undefined") {
