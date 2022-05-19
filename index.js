@@ -56,6 +56,7 @@ function createShorturl(req, res) {
   }
 
   inputUrl = req.body.url;
+  console.log(`tested url is ${inputUrl}`);
   if (inputUrl === "") {
     returnObj.error = "No URL entered!";
     res.json(returnObj);
