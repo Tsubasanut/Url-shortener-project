@@ -15,7 +15,7 @@ const shorturlMapReverse = new Map();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(logCalls);
+//app.use(logCalls);
 
 app.use("/public", express.static(`${process.cwd()}/public`));
 
@@ -28,7 +28,6 @@ app.get("/", function (req, res) {
 });
 
 app.route("/api/shorturl").post(createShorturl);
-//app.post("/api/shorturl", createShorturl);
 
 app.get("/api/shorturl/:url_number", returnRedirect);
 
@@ -56,7 +55,7 @@ function createShorturl(req, res) {
   }
 
   inputUrl = req.body.url;
-  console.log(`tested url is ${inputUrl}`);
+
   if (inputUrl === "") {
     returnObj.error = "No URL entered!";
     res.json(returnObj);
@@ -74,7 +73,7 @@ function createShorturl(req, res) {
   }*/
 
   //so we will use some basic Regex
-  testingRegex = new RegExp(/^((http|ftp)[s]*:\\\\)?[\w]+\.[\w]+$/, "gmi");
+  testingRegex = new RegExp(/^(http|ftp)[s]*:(\\\\|\/\/)[\w-]+\..+$/, "gmi");
   if (!testingRegex.test(inputUrl)) {
     returnObj.error = "invalid url";
     res.json(returnObj);
